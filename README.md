@@ -47,8 +47,30 @@ API REST FastAPI pour l'analyse de la démographie médicale en France.
 
 ## ⚙️ Installation
 
-1. **Cloner le dépôt**
-2. **Créer un fichier `.env`** avec :
+Pour configurer un environnement virtuel Python pour ce projet, vous pouvez suivre ce tutoriel (en anglais) :
+
+[Setting up Python project with venv (virtual environment)](https://medium.com/@yashpatel007/setting-up-python-project-with-venv-virtual-environment-3a6a8575170c)
+
+### Démarrage rapide
+
+1. **Se déplacer dans le dépot**
+   ```bash
+   cd <path-to-folder>
+   ```
+2. **Créer un environnement virtuel :**
+   ```bash
+   python3 -m venv venv
+   ```
+3. **Activer l'environnement virtuel :**
+   - Sur macOS/Linux :
+     ```bash
+     source venv/bin/activate
+     ```
+   - Sur Windows :
+     ```cmd
+     venv\Scripts\activate
+     ```
+4. **Créer un fichier `.env`** avec :
    ```env
    user=VOTRE_USER
    password=VOTRE_MDP
@@ -56,14 +78,16 @@ API REST FastAPI pour l'analyse de la démographie médicale en France.
    port=VOTRE_PORT
    dbname=VOTRE_DB
    ```
-3. **Installer les dépendances**
+5. **Installer les dépendances :**
    ```bash
    pip install -r requirements.txt
    ```
-4. **Lancer le serveur**
+6. **Lancer le serveur :**
    ```bash
    uvicorn main:app --reload
    ```
+
+Pour plus de détails, consultez le tutoriel ci-dessus.
 
 ---
 
@@ -98,5 +122,5 @@ Une fois le serveur lancé, accédez à la documentation Swagger :
 
 ## 👨‍💻 Auteur & Contact
 
-- [Votre nom / équipe]
-- Projet pédagogique - [Nom de l'enseignant] 
+- Faten Ikram Sayeh, Meriem Zoughbi , Dieu-Donné Fianko
+- Projet pédagogique - Mélanie COURTINE
