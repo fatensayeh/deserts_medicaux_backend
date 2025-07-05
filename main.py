@@ -4,9 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from random import randint, uniform
 from dotenv import load_dotenv
 import os
-from psycopg2 import pool
+# from psycopg2 import pool  # Remove psycopg2
+import mysql.connector
+from mysql.connector import pooling
 from fastapi.responses import JSONResponse
-
 
 logger = logging.getLogger('uvicorn.error')
 logger.setLevel(logging.DEBUG)
@@ -32,15 +33,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize connection pool at startup
-db_pool = pool.SimpleConnectionPool(
-    minconn=1,
-    maxconn=10,
+# Initialize MySQL connection pool at startup
+db_pool = pooling.MySQLConnectionPool(
+    pool_name="mypool",
+    pool_size=10,
     user=USER,
     password=PASSWORD,
     host=HOST,
     port=PORT,
-    dbname=DBNAME
+    database=DBNAME,
+    charset='utf8mb4',
+    autocommit=True
 )
 
 @app.get("/api/stats")
@@ -50,7 +53,7 @@ def get_stats():
 
 @app.get("/api/test-db")
 def test_db():
-    connection = db_pool.getconn()
+    connection = db_pool.get_connection()
     try:
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM medecins_par_departement;")
@@ -60,11 +63,11 @@ def test_db():
         cursor.close()
         return JSONResponse(content=result)
     finally:
-        db_pool.putconn(connection)
+        connection.close()
 
 @app.get("/api/passages")
 def get_passages():
-    connection = db_pool.getconn()
+    connection = db_pool.get_connection()
     try:
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM moyenne_passages_par_dep;")
@@ -74,12 +77,11 @@ def get_passages():
         cursor.close()
         return JSONResponse(content=result)
     finally:
-        db_pool.putconn(connection)
-
+        connection.close()
 
 @app.get("/api/medecins_dep")
 def get_nb_medecins_par_dep():
-    connection = db_pool.getconn()
+    connection = db_pool.get_connection()
     try:
         cursor = connection.cursor()
         cursor.execute("SELECT id, departement, effectif FROM medecins_par_departement;")
@@ -89,11 +91,11 @@ def get_nb_medecins_par_dep():
         cursor.close()
         return JSONResponse(content=result)
     finally:
-        db_pool.putconn(connection)
+        connection.close()
 
 @app.get("/api/part-medecins-sup-55")
 def get_part_medecins_sup_55():
-    connection = db_pool.getconn()
+    connection = db_pool.get_connection()
     try:
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM part_medecins_sup_55;")
@@ -103,11 +105,11 @@ def get_part_medecins_sup_55():
         cursor.close()
         return JSONResponse(content=result)
     finally:
-        db_pool.putconn(connection)
+        connection.close()
 
 @app.get("/api/medecins-retraites-actifs")
 def get_medecins_retraites_actifs():
-    connection = db_pool.getconn()
+    connection = db_pool.get_connection()
     try:
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM medecins_retraites_actifs;")
@@ -117,12 +119,11 @@ def get_medecins_retraites_actifs():
         cursor.close()
         return JSONResponse(content=result)
     finally:
-        db_pool.putconn(connection)
-
+        connection.close()
 
 @app.get("/api/apl-dep")
 def get_apl_dep():
-    connection = db_pool.getconn()
+    connection = db_pool.get_connection()
     try:
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM apl_dep;")
@@ -132,6 +133,6 @@ def get_apl_dep():
         cursor.close()
         return JSONResponse(content=result)
     finally:
-        db_pool.putconn(connection)
+        connection.close()
 
 
