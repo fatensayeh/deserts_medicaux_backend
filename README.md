@@ -91,6 +91,17 @@ Pour plus de détails, consultez le tutoriel ci-dessus.
 
 ---
 
+## 🗄️ Base de données : deux options possibles
+
+Vous pouvez choisir entre :
+
+- **Utiliser une base de données MySQL hébergée** : renseignez les informations de connexion dans le fichier `.env`.
+- **Ou importer le fichier d'export SQL fourni** `mysql_export.sql` dans votre propre instance MySQL, puis compléter le fichier `.env` avec vos paramètres locaux (utilisateur, mot de passe, etc.).
+
+Assurez-vous que le schéma de la base correspond bien à celui attendu par l'application.
+
+---
+
 ## 📊 Endpoints Principaux
 
 | Métrique                                 | Endpoint                        | Description                                      |
