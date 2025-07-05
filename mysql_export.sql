@@ -370,7 +370,7 @@ INSERT INTO `medecins_retraites_actifs` (`code`, `dept`, `nbr`) VALUES
 --
 
 CREATE TABLE `moyenne_passages_par_dep` (
-  `dep` varchar(10) DEFAULT NULL,
+  `dep` varchar(10) NOT NULL PRIMARY KEY,
   `libelle_dep` varchar(50) DEFAULT NULL,
   `moyenne_journaliere_passages` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Moyenne journalière de passage en urgence par dpt';

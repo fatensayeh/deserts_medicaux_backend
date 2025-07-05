@@ -4,8 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from random import randint, uniform
 from dotenv import load_dotenv
 import os
-# from psycopg2 import pool  # Remove psycopg2
-import mysql.connector
 from mysql.connector import pooling
 from fastapi.responses import JSONResponse
 
