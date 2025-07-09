@@ -44,11 +44,6 @@ db_pool = pooling.MySQLConnectionPool(
     autocommit=True
 )
 
-@app.get("/api/stats")
-def get_stats():
-    # REGIONS removed, so return an empty list or static data
-    return []
-
 @app.get("/api/test-db")
 def test_db():
     connection = db_pool.get_connection()
